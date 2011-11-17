@@ -1,3 +1,9 @@
+- content_for :header do
+  = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
+  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
+  :javascript
+    $(function(){ prettyPrint() });
+
 %p#notice= notice
 
 %p
@@ -7,11 +13,11 @@
   %b Title:
   = @snippet.title
 %p
-  %b Body:
-  = @snippet.body
-%p
   %b Filetype:
   = @snippet.filetype
+%p
+  %b Body:
+  %pre.prettyprint= @snippet.body
 
 = link_to 'Edit', edit_snippet_path(@snippet)
 \|

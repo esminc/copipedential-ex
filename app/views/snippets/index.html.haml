@@ -14,7 +14,7 @@
     %tr
       %td= snippet.author
       %td= snippet.title
-      %td= snippet.body
+      %td= snippet.body.lines.first
       %td= snippet.filetype
       %td= link_to 'Show', snippet
       %td= link_to 'Edit', edit_snippet_path(snippet)
