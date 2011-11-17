@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Author:
+  = @snippet.author
+%p
+  %b Title:
+  = @snippet.title
+%p
+  %b Body:
+  = @snippet.body
+%p
+  %b Filetype:
+  = @snippet.filetype
+
+= link_to 'Edit', edit_snippet_path(@snippet)
+\|
+= link_to 'Back', snippets_path
