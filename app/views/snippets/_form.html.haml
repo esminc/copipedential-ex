@@ -8,15 +8,17 @@
 
   .field
     = f.label :author
-    = f.text_field :author
+    .input= f.text_field :author, class: 'xlarge'
   .field
     = f.label :title
-    = f.text_field :title
+    .input= f.text_field :title, class: 'xlarge'
   .field
     = f.label :body
-    = f.text_area :body
+    .input= f.text_area :body, class: 'xxlarge', rows: 30
   .field
     = f.label :filetype
-    = f.text_field :filetype
+    .input= f.text_field :filetype, class: 'xlarge'
   .actions
-    = f.submit 'Save'
+    = button_tag 'Clear', type: 'reset', class: 'btn'
+    = f.submit 'Save', class: 'btn primary'
+
