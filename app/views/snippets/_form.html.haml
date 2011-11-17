@@ -17,7 +17,7 @@
     .input= f.text_area :body, class: 'xxlarge span12', rows: 30
   .field
     = f.label :filetype
-    .input= f.text_field :filetype, class: 'xlarge'
+    .input= f.select :filetype, CodeRay::FileType::TypeFromExt.values.uniq.sort.map(&:to_s), class: 'xlarge'
   .actions
     = button_tag 'Clear', type: 'reset', class: 'btn'
     = f.submit 'Save', class: 'btn primary'

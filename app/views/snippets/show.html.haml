@@ -1,9 +1,3 @@
-- content_for :header do
-  = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
-  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
-  :javascript
-    $(function(){ prettyPrint() });
-
 %p#notice= notice
 
 %p
@@ -15,9 +9,9 @@
 %p
   %b Filetype:
   = @snippet.filetype
-%p
-  %b Body:
-  %pre.prettyprint= @snippet.body
+
+- ft = @snippet.filetype.presence || CodeRay::FileType.fetch(@snippet.title) rescue :text
+%code!= CodeRay.scan(@snippet.body, ft.to_sym).div(line_numbers: :table)
 
 = link_to 'Edit', edit_snippet_path(@snippet)
 \|
