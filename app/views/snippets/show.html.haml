@@ -1,17 +1,16 @@
+%h1= @snippet.title
+
 %p#notice= notice
 
-%p
-  %b Author:
+%h2
+  Author:
   = @snippet.author
-%p
-  %b Title:
-  = @snippet.title
+
 %p
   %b Filetype:
-  = @snippet.filetype
+  = @snippet.assumed_filetype '(none)'
 
-- ft = @snippet.filetype.presence || CodeRay::FileType.fetch(@snippet.title) rescue :text
-%code!= CodeRay.scan(@snippet.body, ft.to_sym).div(line_numbers: :table)
+%code!= syntax(@snippet)
 
 = link_to 'Edit', edit_snippet_path(@snippet)
 \|

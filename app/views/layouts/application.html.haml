@@ -6,5 +6,21 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
     = yield :header
-  %body
-    .container= yield
+
+  %body{style:'padding-top: 40px'}
+    .container
+      %section#navigation
+        .topbar-wrapper
+          .topbar
+            .topbar-inner
+              .container
+                %h2=link_to 'Copipedential', :root
+
+                %ul.nav
+
+      = yield
+
+    %footer.footer
+      .container
+        %p footer content Wow!!
+

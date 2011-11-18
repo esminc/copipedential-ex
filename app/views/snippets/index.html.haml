@@ -1,25 +1,13 @@
 %h1 Listing snippets
 
-%table
-  %tr
-    %th Author
-    %th Title
-    %th Body
-    %th Filetype
-    %th
-    %th
-    %th
-
+%ul#snippets
   - @snippets.each do |snippet|
-    %tr
-      %td= snippet.author
-      %td= snippet.title
-      %td= snippet.body.lines.first
-      %td= snippet.filetype
-      %td= link_to 'Show', snippet
-      %td= link_to 'Edit', edit_snippet_path(snippet)
-      %td= link_to 'Destroy', snippet, :confirm => 'Are you sure?', :method => :delete
+    %li[snippet]
+      %h3
+        = link_to "copipe: #{snippet.id}", snippet
+        %span.timestamp= snippet.updated_at
+      %code!= syntax(snippet, 3)
 
 %br
 
-= link_to 'New Snippet', new_snippet_path
+= link_to 'New Snippet', new_snippet_path, class: 'btn primary'

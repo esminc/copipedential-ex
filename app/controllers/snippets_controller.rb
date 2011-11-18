@@ -2,7 +2,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.json
   def index
-    @snippets = Snippet.all
+    @snippets = Snippet.order('updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
