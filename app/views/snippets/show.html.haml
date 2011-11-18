@@ -1,17 +1,14 @@
-%h1= @snippet.title
-
 %p#notice= notice
 
-%h2
-  Author:
-  = @snippet.author
+%div[@snippet]
+  %h1.title
+    = @snippet.title
 
-%p
-  %b Filetype:
-  = @snippet.assumed_filetype '(none)'
+  %h2{style:'height:32px'}
+    %span.filetype.label= @snippet.assumed_filetype '(none)'
+    = user_mini_link @snippet.author
+    = link_to 'Edit', edit_snippet_path(@snippet), class:'btn success'
+    = link_to 'Back', snippets_path, class:'btn'
 
-%code!= syntax(@snippet)
+  %code!= syntax(@snippet)
 
-= link_to 'Edit', edit_snippet_path(@snippet)
-\|
-= link_to 'Back', snippets_path

@@ -16,7 +16,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-
+    self.current_user = nil
+    reset_session
+    redirect_to :sign_in
   end
 
   private
