@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111117094914) do
+ActiveRecord::Schema.define(:version => 20111118075657) do
 
   create_table "snippets", :force => true do |t|
     t.string   "author"
@@ -21,5 +21,17 @@ ActiveRecord::Schema.define(:version => 20111117094914) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "nickname",      :null => false
+    t.string   "uid",           :null => false
+    t.string   "provider",      :null => false
+    t.string   "gravatar"
+    t.datetime "authorized_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid"
 
 end
