@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  has_many :snippets, foreign_key: :author_id
+
   validates :uid, :provider, :nickname, presence: true
   validate :user_is_org_member
 

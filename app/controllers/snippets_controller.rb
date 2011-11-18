@@ -17,19 +17,19 @@ class SnippetsController < ApplicationController
   # GET /snippets/new
   # GET /snippets/new.json
   def new
-    @snippet = Snippet.new
+    @snippet = current_user.snippets.build
     respond_with @snippet
   end
 
   # GET /snippets/1/edit
   def edit
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
   end
 
   # POST /snippets
   # POST /snippets.json
   def create
-    @snippet = Snippet.new(params[:snippet])
+    @snippet = current_user.snippets.build(params[:snippet])
     @snippet.save
     respond_with(@snippet)
   end
@@ -37,7 +37,7 @@ class SnippetsController < ApplicationController
   # PUT /snippets/1
   # PUT /snippets/1.json
   def update
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
     @snippet.update_attributes(params[:snippet])
     respond_with(@snippet)
   end
@@ -45,7 +45,7 @@ class SnippetsController < ApplicationController
   # DELETE /snippets/1
   # DELETE /snippets/1.json
   def destroy
-    @snippet = Snippet.find(params[:id])
+    @snippet = current_user.snippets.find(params[:id])
     @snippet.destroy
 
     respond_with(@snippet)
