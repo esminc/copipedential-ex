@@ -1,0 +1,12 @@
+- if @user && @user.errors.present?
+  #error_explanation
+    %ul
+      - @user.errors.full_messages.each do |msg|
+        %li= msg
+
+- if url = ENV['RECRUITING_URI']
+  %p{style:'font-size: 200%'}
+    Send proposal from
+    %em= link_to url, url
+    \.
+

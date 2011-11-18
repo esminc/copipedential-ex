@@ -1,0 +1,15 @@
+%h1 Sign in
+
+%h2 via Github
+
+%p{style:'font-size: 200%'}
+  You can sign in via Github
+  = link_to image_tag('github_64.png'), '/auth/github'
+  if you are
+  = link_to User.organization, "http://github.com/#{User.organization}"
+  member.
+
+- if ENV['RECRUITING_URI']
+  %p or
+  = render(template:'sessions/forbidden')
+

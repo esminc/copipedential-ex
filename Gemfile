@@ -7,7 +7,9 @@ gem 'rails', '3.1.2'
 
 gem 'sqlite3'
 gem 'coderay'
-gem "responders"
+gem 'responders'
+gem 'omniauth-github'
+gem 'hubruby'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -45,3 +47,4 @@ gem "ruby-debug19", :group => ["development", "test"]
 gem "rspec-rails", :group => ["development", "test"]
 gem "cucumber-rails", :group => ["development", "test"]
 gem "fabrication", :group => ["development", "test"]
+

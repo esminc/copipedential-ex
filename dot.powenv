@@ -1,0 +1,6 @@
+export GITHUB_KEY=your-github-key
+export GITHUB_SECRET=your-github-secret
+
+export ORGANIZATION=esminc
+export RECRUITING_URI=http://bit.ly/esm-hiring-rubyists
+

@@ -14,9 +14,14 @@
           .topbar
             .topbar-inner
               .container
-                %h2=link_to 'Copipedential', :root
+                %h3= link_to 'Copipedential', :root
 
                 %ul.nav
+                  %li.organization= link_to organization, "https://github.com/#{organization}"
+                  - if signed_in?
+                    %li= link_to 'New copipe', :new_snippet
+                    %li.you= user_mini_link(current_user)
+                    %li.sign_out= link_to 'Sign out', sign_out_url
 
       = yield
 
