@@ -2,7 +2,9 @@ require 'hubruby'
 
 class User < ActiveRecord::Base
   class << self
-    attr_accessor :organization
+    def organization
+      ENV['ORGANIZATION'] || 'esminc'
+    end
 
     def find_by_auth_hash(auth_hash)
       where(auth_hash.slice(:provider, :uid)).first

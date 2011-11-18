@@ -1,6 +1,12 @@
 Copipedential::Application.routes.draw do
   root to: 'snippets#index'
+
   resources :snippets
+  resources :users, only: %w[show]
+
+  get 'sign_in', to: 'sessions#new', as: :sign_in
+  get 'sign_in', to: 'sessions#destroy', as: :sign_out
+  match '/auth/:provider/callback', to: 'sessions#create'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

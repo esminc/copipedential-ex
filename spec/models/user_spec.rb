@@ -1,8 +1,11 @@
 require 'spec_helper'
 
-User.organization = 'esminc'
 
 describe User do
+  before do
+    ENV['ORGANIZATION'] = 'esminc'
+  end
+
   describe '.org_member?' do
     context 'real API access', external: true do
       specify { User.org_member?('moro').should be_true }
