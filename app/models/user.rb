@@ -4,14 +4,18 @@ class User < ActiveRecord::Base
   class << self
     attr_accessor :organization
 
-    def create_from_auth_hash(auth_hash)
-      nickname = if auth_hash[:provider] == 'github'
+    def find_by_auth_hash(auth_hash)
+      where(auth_hash.slice(:provider, :uid)).first
+    end
+
+    def build_from_auth_hash(auth_hash)
+      nickname = if auth_hash.provider == 'github'
           auth_hash[:info][:nickname]
         else
           auth_hash[:info][:nickname] || auth_hash[:info][:name]
         end
 
-      new(provider: auth_hash[:provider], uid: auth_hash[:uid], nickname: nickname)
+      new(auth_hash.slice(:provider, :uid).merge(nickname: nickname))
     end
 
     def org_member?(login); !!org_member(login); end

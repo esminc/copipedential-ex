@@ -3,15 +3,15 @@ require 'spec_helper'
 User.organization = 'esminc'
 
 describe User do
-
   describe '.org_member?' do
     context 'real API access', external: true do
       specify { User.org_member?('moro').should be_true }
     end
   end
 
-  describe '.create callbacks' do
-    let(:user) { User.create_from_auth_hash(provider: 'github', uid: 3419, info:{nickname: 'moro', name: 'MOROHASHI Kyosuke'}) }
+  describe 'create callbacks' do
+    let(:auth_hash) { Hashie::Mash.new(provider: 'github', uid: 3419, info:{nickname: 'moro', name: 'MOROHASHI Kyosuke'}) }
+    let(:user) { User.build_from_auth_hash(auth_hash) }
     subject &:user
 
     before do
@@ -21,6 +21,9 @@ describe User do
 
     its(:nickname) { should == 'moro' }
     its(:gravatar) { should == '70e13d9877054026fda46d5a5b53a236' }
+    specify 'now, can find the user' do
+      User.find_by_auth_hash(auth_hash).should == user
+    end
   end
 
   let(:moro_offline) do
@@ -47,5 +50,3 @@ describe User do
     })
   end
 end
-__END__
-?#<GitHub::User gravatar_id="79252a03c011dffc5afdcbf941d1f952", avatar_url="https://secure.gravatar.com/avatar/79252a03c011dffc5afdcbf941d1f952?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png", url="https://api.github.com/users/tmori", login="tmori", id=164193>, #<GitHub::User gravatar_id="f966e93db0fbaf3aa07f7df5fa136933", avatar_url="https://secure.gravatar.com/avatar/f966e93db0fbaf3aa07f7df5fa136933?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png", url="https://api.github.com/users/ursm", login="ursm", id=7548>, 
