@@ -226,3 +226,14 @@ ja:
 
       full_messages:
         format: "%{attribute}%{message}"
+
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} ができました。"
+      update:
+        notice: "%{resource_name} を更新しました。"
+      destroy:
+        notice: "%{resource_name} was successfully destroyed."
+        alert: "%{resource_name} could not be destroyed."
+
