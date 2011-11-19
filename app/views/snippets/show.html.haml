@@ -18,10 +18,12 @@
 
   %p.description
 
-  // TODO valid HTML.
-  %code><!= syntax(@snippet)
+  %pre.prettyprint.linenums
+    - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
+    %code{opt}= @snippet.body
 
-- # HACK
-- if request.user_agent =~ /Firefox/
+- content_for :header do
+  = stylesheet_link_tag '/javascripts/google-code-prettify/prettify'
+  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
   :javascript
-    $(function(){ $('td.line-numbers a').css('display', 'inline-block').css('margin-bottom', '0.3px') });
+    $(function(){ prettyPrint() });
