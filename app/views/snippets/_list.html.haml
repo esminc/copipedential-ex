@@ -1,0 +1,7 @@
+.row
+  %ul#snippets.unstyled.span12
+    - snippets.each do |snippet|
+      %li[snippet]
+        = render(partial: 'attr_line', locals: {snippet: snippet})
+        %pre.prettyprint
+          %code= snippet.body.lines.first(3).join
