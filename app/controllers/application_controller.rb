@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include AuthenticateMethods
 
   protect_from_forgery
-  before_filter :authenticate!, :personalize
+  before_filter :authenticate!, :authorize!, :personalize
   responders :flash
   helper_method :organization
 
@@ -17,10 +17,12 @@ class ApplicationController < ActionController::Base
   end
 
   def find_user
-    User.find_by_id(session[:user_id]).tap do |u|
-      if u && (u.authorized_at.nil? || u.authorized_at < 1.days.ago)
-        User.verify_org_member!(u)
-      end
+    User.find_by_id(session[:user_id])
+  end
+
+  def authorize!
+    if (current_user.authorized_at.nil? || current_user.authorized_at < 1.days.ago)
+      User.verify_org_member!(u)
     end
   end
 
