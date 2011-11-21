@@ -1,38 +1,27 @@
 class ApplicationController < ActionController::Base
+  include AuthenticateMethods
+
   protect_from_forgery
   before_filter :authenticate!, :personalize
   responders :flash
-  helper_method :signed_in?, :current_user, :organization
+  helper_method :organization
 
   private
-
-  def per_page
-    Integer(params[:per_page]) rescue 10
-  end
-
-  def authenticate!
-    signed_in? or redirect_to sign_in_url
-  end
 
   def organization
     User.organization
   end
 
-  def signed_in?
-    !!current_user
+  def per_page
+    Integer(params[:per_page]) rescue 10
   end
 
-  def current_user
-    return nil if @current_user == :none
-    return @current_user if @current_user
-
-    self.current_user = User.find_by_id(session[:user_id])
-    current_user
-  end
-
-  def current_user=(user)
-    @current_user, session[:user_id] =
-      user ? [user, user.id] : [:none, nil]
+  def find_user
+    User.find_by_id(session[:user_id]).tap do |u|
+      if u && (u.authorized_at.nil? || u.authorized_at < 1.days.ago)
+        User.verify_org_member!(u)
+      end
+    end
   end
 
   # FIXME
@@ -41,3 +30,4 @@ class ApplicationController < ActionController::Base
     Time.zone = 'Asia/Tokyo'
   end
 end
+
