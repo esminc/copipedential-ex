@@ -30,6 +30,19 @@ describe User do
     end
   end
 
+  describe 'not org member' do
+    let(:auth_hash) { Hashie::Mash.new(provider: 'github', uid: 3419, info:{nickname: 'foobar', name: 'MOROHASHI Kyosuke'}) }
+    let(:user) { User.build_from_auth_hash(auth_hash) }
+    subject &:user
+
+    before do
+      User.stub!(:org_members) { [moro_offline] }
+      user.valid?
+    end
+
+    it { should have(1).errors_on(:base) }
+  end
+
   let(:moro_offline) do
     GitHub::User.from_hash({
       :type=>"User",

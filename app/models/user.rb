@@ -1,6 +1,9 @@
 require 'hubruby'
 
 class User < ActiveRecord::Base
+  class NotOrgMember < RuntimeError
+  end
+
   class << self
     def organization
       ENV['ORGANIZATION'] || 'esminc'
@@ -20,6 +23,18 @@ class User < ActiveRecord::Base
       new(auth_hash.slice(:provider, :uid).merge(nickname: nickname))
     end
 
+    def verify_org_member!(user)
+      if org_member?(user.nickname)
+        if user.new_record?
+          user.authorized_at = Time.now
+        else
+          user.update_attribute :authorized_at,  Time.now
+        end
+      else
+        raise NotOrgMember
+      end
+    end
+
     def org_member?(login); !!org_member(login); end
 
     def org_member(login)
@@ -27,7 +42,7 @@ class User < ActiveRecord::Base
     end
 
     def org_members
-      with_caching('user.org_member', expires_in: 60.mintues.to_i) do
+      with_caching('user.org_member', expires_in: 60.minutes.to_i) do
         GitHub.organization_public_members(organization)
       end
     end
@@ -52,12 +67,14 @@ class User < ActiveRecord::Base
 
   # XXX i18n
   def user_is_org_member
-    unless self.class.org_member?(nickname)
+    begin
+      self.class.verify_org_member!(self)
+    rescue NotOrgMember
+      msg = "You are\'nt #{self.class.organization} member."
       if u = ENV['RECRUITING_URI']
-        errors.add(:base, "You are\'nt #{self.class.organization} member. Send your resume to #{u}.")
-      else
-        errors.add(:base, "You are\'nt #{self.class.organization} member.")
+        msg << " Send your resume to #{u}."
       end
+      errors.add(:base, msg)
     end
   end
 
