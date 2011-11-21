@@ -1,14 +1,14 @@
-
 %h1
   Listing snippets
   = link_to 'Create new', new_snippet_path, class: 'btn primary'
 
-%ul#snippets.unstyled
-  - @snippets.each do |snippet|
-    %li[snippet]
-      = render(partial: 'attr_line', locals: {snippet: snippet})
-      %pre.prettyprint
-        %code= snippet.body.lines.first(3).join
+.row
+  %ul#snippets.unstyled.span12
+    - @snippets.each do |snippet|
+      %li[snippet]
+        = render(partial: 'attr_line', locals: {snippet: snippet})
+        %pre.prettyprint
+          %code= snippet.body.lines.first(3).join
 
 %br
 

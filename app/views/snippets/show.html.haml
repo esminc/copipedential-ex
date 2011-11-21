@@ -1,15 +1,16 @@
 %p#notice= notice
 
-%div[@snippet]
+%div.row[@snippet]
   %h1.title
     = @snippet.title
 
-  = render(partial: 'attr_line', locals: {snippet: @snippet})
-  %p.description
+  .span12
+    = render(partial: 'attr_line', locals: {snippet: @snippet})
+    %p.description
 
-  %pre.prettyprint.linenums
-    - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
-    %code{opt}= @snippet.body
+    %pre.prettyprint.linenums
+      - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
+      %code{opt}= @snippet.body
 
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
