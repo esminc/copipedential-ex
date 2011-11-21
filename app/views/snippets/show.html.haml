@@ -4,24 +4,15 @@
   %h1.title
     = @snippet.title
 
-  %h2.attr-line.row
-    .span2
-      =link_to "copipe:#{@snippet.id}", @snippet, class: :permalink
-    .span1.filetype
-      %span.label= @snippet.assumed_filetype '(none)'
-    .span2.offset7= user_mini_link @snippet.author
-    .span1
-      - if @snippet.author == current_user
-        = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
-    .span3
-      %span.timestamp= l(@snippet.updated_at)
-
+  = render(partial: 'attr_line', locals: {snippet: @snippet})
   %p.description
 
-  // TODO valid HTML.
-  %code><!= syntax(@snippet)
+  %pre.prettyprint.linenums
+    - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
+    %code{opt}= @snippet.body
 
-- # HACK
-- if request.user_agent =~ /Firefox/
+- content_for :header do
+  = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
+  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
   :javascript
-    $(function(){ $('td.line-numbers a').css('display', 'inline-block').css('margin-bottom', '0.3px') });
+    $(function(){ prettyPrint() });
