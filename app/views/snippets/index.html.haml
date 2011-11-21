@@ -1,13 +1,19 @@
 %h1 Listing snippets
 
-%ul#snippets
+%ul#snippets.unstyled
   - @snippets.each do |snippet|
     %li[snippet]
-      %h3
-        = link_to "copipe: #{snippet.id}", snippet
-        %span.timestamp= snippet.updated_at
-      %code!= syntax(snippet, 3)
+      = render(partial: 'attr_line', locals: {snippet: snippet})
+      %pre.prettyprint
+        %code= snippet.body.lines.first(3).join
 
 %br
 
 = link_to 'New Snippet', new_snippet_path, class: 'btn primary'
+
+- content_for :header do
+  = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
+  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
+  :javascript
+    $(function(){ prettyPrint() });
+
