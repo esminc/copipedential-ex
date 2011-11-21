@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def per_page
+    Integer(params[:per_page]) rescue 10
+  end
+
   def authenticate!
     signed_in? or redirect_to sign_in_url
   end

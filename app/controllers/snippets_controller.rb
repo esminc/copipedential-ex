@@ -3,7 +3,7 @@ class SnippetsController < ApplicationController
   # GET /snippets
   # GET /snippets.json
   def index
-    @snippets = Snippet.order('updated_at DESC')
+    @snippets = Snippet.order('updated_at DESC').page(params[:page]).per(per_page)
     respond_with(@snippets)
   end
 

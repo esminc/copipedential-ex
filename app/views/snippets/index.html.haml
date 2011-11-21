@@ -2,7 +2,9 @@
   Listing snippets
   = link_to 'Create new', new_snippet_path, class: 'btn primary'
 
-= render partial: 'list', locals:{snippets: @snippets}
+= with_paging(@snippets) do
+  = render partial: 'list', locals:{snippets: @snippets}
+
 %br
 
 = link_to 'Create new snippet', new_snippet_path, class: 'btn primary'
