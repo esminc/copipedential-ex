@@ -1,12 +1,11 @@
 %p#notice= notice
 
 %div.row[@snippet]
-  %h1.title
-    = @snippet.title
+  %h1.title= @snippet.name
 
   .span12
     = render(partial: 'attr_line', locals: {snippet: @snippet})
-    %p.description
+    %p.description= @snippet.description
 
     %pre.prettyprint.linenums
       - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
