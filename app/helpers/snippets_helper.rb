@@ -8,11 +8,6 @@ module SnippetsHelper
     end
   end
 
-  def syntax(snippet, limit = nil)
-    body = limit ? snippet.body.lines.first(limit).join : snippet.body
-    CodeRay.scan(body, snippet.assumed_filetype.to_sym).div(line_numbers: :table, css: :style)
-  end
-
   # XXX CRUD able
   def filetype_suggesions
     [
@@ -24,6 +19,7 @@ module SnippetsHelper
       %w[Java java],
       %w[C c],
       %w[C++ cpp],
+      %w[SQL sql],
       %w[XML xml],
     ]
   end

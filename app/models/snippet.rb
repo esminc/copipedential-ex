@@ -3,6 +3,6 @@ class Snippet < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
 
   def assumed_filetype(if_none = :text)
-    filetype.presence || CodeRay::FileType.fetch(title) rescue if_none
+    filetype.presence || if_none
   end
 end
