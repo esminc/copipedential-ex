@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(:version => 20111121035641) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "nickname",      :null => false
-    t.string   "uid",           :null => false
-    t.string   "provider",      :null => false
-    t.string   "gravatar"
+    t.string   "nickname",      :limit => 32, :null => false
+    t.integer  "uid",                         :null => false
+    t.string   "provider",      :limit => 30, :null => false
+    t.string   "gravatar",      :limit => 32
     t.datetime "authorized_at"
     t.datetime "created_at"
     t.datetime "updated_at"
