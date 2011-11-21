@@ -1,4 +1,7 @@
-%h1 Listing snippets
+
+%h1
+  Listing snippets
+  = link_to 'Create new', new_snippet_path, class: 'btn primary'
 
 %ul#snippets.unstyled
   - @snippets.each do |snippet|
@@ -9,7 +12,7 @@
 
 %br
 
-= link_to 'New Snippet', new_snippet_path, class: 'btn primary'
+= link_to 'Create new snippet', new_snippet_path, class: 'btn primary'
 
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
