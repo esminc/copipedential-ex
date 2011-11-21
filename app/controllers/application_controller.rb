@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize!
-    if (current_user.authorized_at.nil? || current_user.authorized_at < 1.days.ago)
+    if signed_in? && (current_user.authorized_at.nil? || current_user.authorized_at < 1.days.ago)
       User.verify_org_member!(u)
     end
   end
