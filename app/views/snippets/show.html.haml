@@ -12,6 +12,10 @@
       - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
       %code{opt}= @snippet.body
 
+    .mentioned
+      - [current_user].each do |user|
+        = link_to_function(image_tag(gravatar(user, 32)), '#')
+
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
   = javascript_include_tag '/javascripts/google-code-prettify/prettify'
