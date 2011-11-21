@@ -1,11 +1,12 @@
-%p#notice= notice
-
 %div.row[@snippet]
   %h1.title= @snippet.name
 
   .span12
     = render(partial: 'attr_line', locals: {snippet: @snippet})
-    %p.description= @snippet.description
+    %p.description
+      = @snippet.description
+      - if @snippet.author == current_user
+        = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
 
     %pre.prettyprint.linenums
       - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}

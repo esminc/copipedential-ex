@@ -3,12 +3,10 @@
     =link_to "copipe:#{snippet.id}", snippet, class: :permalink
   .span2.filetype
     %span.label= snippet.assumed_filetype(nil) || content_tag('span', '(none)', class: 'blank')
-  .span2
+  .span3
     = snippet.name.presence || content_tag('span', '(none)', class: 'blank')
   .span2
     = user_mini_link snippet.author
-  .span3
+  .span2
     %span.timestamp= l(snippet.updated_at)
-    - if snippet.author == current_user
-      = link_to 'Edit', edit_snippet_path(snippet), class:'btn'
 
