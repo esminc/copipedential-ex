@@ -1,4 +1,5 @@
 @import "bootstrap"
+$small: 10px
 
 a.user-mini
   background-position: left center !important
@@ -18,6 +19,11 @@ table.CodeRay
       margin: 0
       padding: 0 0 0 0.5em
 
+span.blank
+  font-style: italic
+  color: rgb(200, 200, 200)
+  font-weight: normal
+
 textarea#snippet_body
   font-family: monospace
   font-size: 14px
@@ -29,6 +35,10 @@ textarea#snippet_body
   a.user-mini
     padding: 5px
 
+  span.timestamp
+    font-size: $small
+    font-weight: normal
+
 .snippet
   code
     background-color: black
@@ -36,4 +46,8 @@ textarea#snippet_body
 ul#snippets
   li
     margin-bottom: 3em
+
+// /snippets/new & webkit hack
+select[name*=filetype]
+  height: 27px
 
