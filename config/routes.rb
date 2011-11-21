@@ -2,7 +2,9 @@ Copipedential::Application.routes.draw do
   root to: 'snippets#index'
 
   resources :snippets
-  resources :users, only: %w[show]
+  resources :users, only: %w[show] do
+    resources :snippets, only: %w[index]
+  end
 
   get 'sign_in', to: 'sessions#new', as: :sign_in
   get 'sign_out', to: 'sessions#destroy', as: :sign_out
