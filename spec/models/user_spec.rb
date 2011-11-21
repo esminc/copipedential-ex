@@ -9,6 +9,7 @@ describe User do
   describe '.org_member?' do
     context 'real API access', external: true do
       specify { User.org_member?('moro').should be_true }
+      specify { User.org_member?('rails').should_not be_true }
     end
   end
 

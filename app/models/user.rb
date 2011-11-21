@@ -27,8 +27,17 @@ class User < ActiveRecord::Base
     end
 
     def org_members
-      return @members if @members
-      @members = GitHub.organization_public_members(organization)
+      with_caching('user.org_member', expires_in: 60.mintues.to_i) do
+        GitHub.organization_public_members(organization)
+      end
+    end
+
+    def with_caching(key, options = {}, &if_not_hit)
+      key = [Rails.env, key].join('.')
+      unless Rails.cache.exist?(key)
+        Rails.cache.write(key, if_not_hit.call(key), options)
+      end
+      Rails.cache.read(key)
     end
   end
 
