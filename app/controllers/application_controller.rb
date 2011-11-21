@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def per_page
-    Integer(params[:per_page]) rescue 10
+    Integer(params[:per_page]) rescue 20
   end
 
   def find_user
