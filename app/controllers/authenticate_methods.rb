@@ -8,7 +8,11 @@ module AuthenticateMethods
   protected
 
   def authenticate!
-    signed_in? or redirect_to sign_in_url
+    if signed_in?
+      return true
+    else
+      redirect_to(sign_in_url) and return false
+    end
   end
 
   def signed_in?
