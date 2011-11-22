@@ -5,4 +5,16 @@ class Snippet < ActiveRecord::Base
   def assumed_filetype(if_none = :text)
     filetype.presence || if_none
   end
+
+  def title
+    if name && description
+      "#{name} - #{description}"
+    elsif name
+      "#{name}"
+    elsif description
+      "#{description}"
+    else
+      "#{body.slice(0,20)}"
+    end
+  end
 end
