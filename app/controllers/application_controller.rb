@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
 
   def authorize!
     if signed_in? && (current_user.authorized_at.nil? || current_user.authorized_at < 1.days.ago)
-      User.verify_org_member!(u)
+      User.verify_org_member!(current_user)
     end
   end
 
