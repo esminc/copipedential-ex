@@ -35,7 +35,7 @@
           %li
             - id = "mentioned_ids_#{user.id}"
             %label(for=id)
-              = check_box_tag "#{f.object_name}[mentioned_ids][]", user.id, [].include?(user.id), id: id
+              = check_box_tag "#{f.object_name}[mentioned_ids][]", user.id, @snippet.mentioned_ids.include?(user.id), id: id
               = image_tag(gravatar(user, 48), alt:user.nickname)
       .clearfix
 

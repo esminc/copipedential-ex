@@ -8,12 +8,13 @@
       - if @snippet.author == current_user
         = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
 
-    %pre.prettyprint.linenums
+    %pre.prettyprint.linenums.body
       - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
       %code{opt}= @snippet.body
 
     .mentioned
-      - [current_user].each do |user|
+      %h2 mentions
+      - @snippet.mentioneds.alphabetical_order.each do |user|
         = link_to_function(image_tag(gravatar(user, 32)), '#')
 
 - content_for :header do
