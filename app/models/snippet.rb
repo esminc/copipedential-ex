@@ -7,12 +7,8 @@ class Snippet < ActiveRecord::Base
   end
 
   def title
-    if name && description
-      "#{name} - #{description}"
-    elsif name
-      "#{name}"
-    elsif description
-      "#{description}"
+    if name || description
+      [name, description].compact.join(' - ')
     else
       "#{body.slice(0,20)}"
     end
