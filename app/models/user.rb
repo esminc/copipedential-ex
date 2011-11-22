@@ -57,11 +57,16 @@ class User < ActiveRecord::Base
   end
 
   has_many :snippets, foreign_key: :author_id
+  has_many :mentions, foreign_key: :mentioned_id
+  has_many :mentioned_snippets, through: :mentions, source: 'snippet'
 
   validates :uid, :provider, :nickname, presence: true
-  validate :user_is_org_member
+  validates_uniqueness_of :uid, scope: :provider
+  validate :user_is_org_member, if:->(u) { u.provider == 'github' }
 
   before_create :assign_gravatar, if:->(u) { u.provider == 'github' }
+
+  scope :alphabetical_order, order("#{quoted_table_name}.nickname ASC")
 
   private
 
