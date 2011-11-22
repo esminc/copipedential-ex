@@ -7,10 +7,6 @@ class Snippet < ActiveRecord::Base
   end
 
   def title
-    if name || description
-      [name, description].compact.join(' - ')
-    else
-      "#{body.slice(0,20)}"
-    end
+    [name, description].reject(&:blank?).join(' - ').presence || body.truncate(20)
   end
 end
