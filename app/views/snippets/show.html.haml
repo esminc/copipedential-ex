@@ -13,12 +13,15 @@
       %code{opt}= @snippet.body
 
     .mentioned
-      %h2 mentions
+      %h2 mentioned to
       - @snippet.mentioneds.alphabetical_order.each do |user|
-        = link_to_function(image_tag(gravatar(user, 32)), '#')
+        = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
 
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
   = javascript_include_tag '/javascripts/google-code-prettify/prettify'
   :javascript
-    $(function(){ prettyPrint() });
+    $(function(){
+      $('.mentioned img').twipsy();
+      prettyPrint();
+    });
