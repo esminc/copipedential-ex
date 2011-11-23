@@ -7,6 +7,8 @@
   .index.span12
     = with_paging(@snippets) do
       = render partial: 'list', locals:{snippets: @snippets}
+  .dashboard.span4
+    = render :partial => 'dashboard'
 
 %br
 

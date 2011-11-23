@@ -5,6 +5,11 @@ class Snippet < ActiveRecord::Base
   has_many :mentions
   has_many :mentioneds, through: :mentions
 
+  scope :recent, ->(*arg) do
+    o = order("#{quoted_table_name}.updated_at DESC")
+    (limit = arg.first) ? o.limit(limit.to_i) : o
+  end
+
   def assumed_filetype(if_none = :text)
     filetype.presence || if_none
   end
