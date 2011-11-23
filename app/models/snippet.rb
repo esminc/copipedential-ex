@@ -8,4 +8,8 @@ class Snippet < ActiveRecord::Base
   def assumed_filetype(if_none = :text)
     filetype.presence || if_none
   end
+
+  def number
+    "copipe:#{id}"
+  end
 end
