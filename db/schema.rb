@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121035641) do
+ActiveRecord::Schema.define(:version => 20111122061349) do
+
+  create_table "mentions", :force => true do |t|
+    t.integer "snippet_id",   :null => false
+    t.integer "mentioned_id", :null => false
+  end
+
+  add_index "mentions", ["snippet_id", "mentioned_id"], :name => "index_mentions_on_snippet_id_and_mentioned_id"
 
   create_table "snippets", :force => true do |t|
     t.string   "name"

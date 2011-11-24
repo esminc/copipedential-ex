@@ -9,7 +9,7 @@
   .field
     = f.label :name
     .input
-      = f.text_field :name, class: 'xlarge span2', placeholder: 'a filename'
+      = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename'
       %span.help-inline (optional)
 
   .field
@@ -20,14 +20,40 @@
   .field
     = f.label :description
     .input
-      = f.text_field :description, class: 'xlarge span5', placeholder: 'description'
+      = f.text_field :description, class: 'xlarge span7', placeholder: 'description'
       %span.help-inline (optional)
 
   .field
     = f.label :body
-    .input= f.text_area :body, class: 'xxlarge span12', rows: 30
+    .input= f.text_area :body, class: 'xxlarge span13', rows: 30
+
+  .field.mentions
+    %label Mention
+    .input
+      %ul.inputs-list
+        - User.alphabetical_order.each do |user|
+          %li
+            - id = "mentioned_ids_#{user.id}"
+            %label(for=id)
+              = check_box_tag "#{f.object_name}[mentioned_ids][]", user.id, @snippet.mentioned_ids.include?(user.id), id: id
+              = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
+      .clearfix
 
   .actions
     = button_tag 'Clear', type: 'reset', class: 'btn'
     = f.submit 'Save', class: 'btn primary'
+
+:javascript
+  $(function(){
+    var selector = '.mentions ul input[type=checkbox]';
+    function highlightMention() {
+      $(selector).parents('li').removeClass('checked');
+      $(selector + ':checked').parents('li').addClass('checked');
+      return true;
+    };
+    $(selector).change(highlightMention);
+    highlightMention();
+
+    $('.mentions img').twipsy();
+  });
 

@@ -1,0 +1,16 @@
+%h2 Dashboad
+
+.mentioned
+  %h3=t_wd 'mentioned'
+  %ul.unstyled
+    - current_user.mentioned_snippets.recent(5).each do |s|
+      %li
+        = link_to s.number, s, class: :parmalink
+        =l s.updated_at
+.recent
+  %h3=t_wd 'You pastesd'
+  %ul.unstyled
+    - current_user.snippets.recent(5).each do |s|
+      %li
+        = link_to s.number, s, class: :parmalink
+        =l s.updated_at

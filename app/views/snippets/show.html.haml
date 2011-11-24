@@ -1,19 +1,26 @@
-%div.row[@snippet]
+%div[@snippet]
   %h1.title= @snippet.name
 
-  .span12
-    = render(partial: 'attr_line', locals: {snippet: @snippet})
-    %p.description
-      = @snippet.description
-      - if @snippet.author == current_user
-        = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
+  = render(partial: 'attr_line', locals: {snippet: @snippet})
+  %p.description
+    = @snippet.description
+    - if @snippet.author == current_user
+      = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
 
-    %pre.prettyprint.linenums
-      - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
-      %code{opt}= @snippet.body
+  %pre.prettyprint.linenums.body
+    - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
+    %code{opt}= @snippet.body
+
+  .mentioned
+    %h2 mentioned to
+    - @snippet.mentioneds.alphabetical_order.each do |user|
+      = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
 
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
   = javascript_include_tag '/javascripts/google-code-prettify/prettify'
   :javascript
-    $(function(){ prettyPrint() });
+    $(function(){
+      $('.mentioned img').twipsy();
+      prettyPrint();
+    });
