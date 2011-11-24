@@ -2,5 +2,5 @@
 
 %div
   %ul
-    - @user.snippets.limit(20).each do |snippet|
+    - @user.snippets.recent(20).each do |snippet|
       %li= link_to snippet.title, snippet
