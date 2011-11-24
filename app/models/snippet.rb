@@ -18,7 +18,7 @@ class Snippet < ActiveRecord::Base
     [name, description].reject(&:blank?).join(' - ').presence || body.truncate(20)
   end
 
-  def number
+  def code
     "copipe:#{id}"
   end
 end
