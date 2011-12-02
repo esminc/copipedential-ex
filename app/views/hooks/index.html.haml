@@ -1,0 +1,27 @@
+%h1 Listing hooks
+
+%table
+  %tr
+    %th Name
+    %th Backend
+    %th Status
+    %th
+    %th
+    %th
+
+  - @hooks.each do |hook|
+    %tr
+      %td= hook.name
+      %td= hook.backend
+      %td
+        - if hook.active
+          %span.label.success Active
+        - else
+          %span.label Deactive
+      %td= link_to 'Show', hook
+      %td= link_to 'Edit', edit_hook_path(hook)
+      %td= link_to 'Destroy', hook, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Hook', new_hook_path

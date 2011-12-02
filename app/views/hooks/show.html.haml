@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @hook.name
+%p
+  %b Backend:
+  = @hook.backend
+%p
+  %b Config:
+  %pre.prettyprint
+    %code.language-yaml= @hook.config
+
+%p
+  %b Status
+  - if @hook.active
+    %span.label.success Active
+  - else
+    %span.label Deactive
+
+= link_to 'Edit', edit_hook_path(@hook)
+\|
+= link_to 'Back', hooks_path

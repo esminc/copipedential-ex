@@ -21,6 +21,7 @@
                 %ul.nav
                   - if signed_in?
                     %li= link_to 'Copipe!', :new_snippet
+                    %li= link_to 'Hooks', :hooks
                     %li.you= user_mini_link(current_user)
                     %li.sign_out= link_to 'Sign out', sign_out_url
 
