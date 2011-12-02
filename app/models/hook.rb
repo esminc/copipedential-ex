@@ -1,6 +1,4 @@
 class Hook
-  include Rails.application.routes.url_helpers
-
   module MentionHook
     extend ActiveSupport::Concern
     included do
@@ -12,7 +10,7 @@ class Hook
   end
 
   def self.mention(snippet)
-    hook(new(snippet).mention)
+    hook(Message.new(snippet).mention)
   end
 
   def self.hook(message)
@@ -21,24 +19,30 @@ class Hook
 
   def self.enabled?; !!ENV['ENDPOINT'] ; end
 
-  def initialize(snippet)
-    @snippet = snippet
-  end
+  class Message
+    include Rails.application.routes.url_helpers
 
-  def mention
-    verb = @snippet.id_was.nil? ? 'pasted' : 'updated'
-    receivers = @snippet.mentioneds.map(&:nickname).sort.join(' ')
+    self.default_url_options = {protocol: 'https', host: 'copipedential.herokuapp.com'}
 
-    "#{receivers}: #{author_nickname} #{verb} snippet for you -- #{permalink}"
-  end
+    def initialize(snippet)
+      @snippet = snippet
+    end
 
-  private
+    def mention
+      verb = @snippet.id_was.nil? ? 'pasted' : 'updated'
+      receivers = @snippet.mentioneds.map(&:nickname).sort.join(' ')
 
-  def author_nickname
-    @snippet.author.nickname
-  end
+      "#{receivers}: #{author_nickname} #{verb} snippet for you -- #{permalink}"
+    end
 
-  def permalink
-    url_for(@snippet)
+    private
+
+    def author_nickname
+      @snippet.author.nickname
+    end
+
+    def permalink
+      url_for(@snippet)
+    end
   end
 end
