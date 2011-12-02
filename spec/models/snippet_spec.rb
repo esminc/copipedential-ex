@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Snippet do
   # XXX
   before do
-    Hook.default_url_options = {host: 'copipedential.example.com', protocol: 'https'}
+    Hook::Message.default_url_options = {host: 'copipedential.example.com', protocol: 'https'}
   end
 
   describe 'save the snippet, and built valid associations' do
