@@ -5,20 +5,9 @@ describe Hook do
     Hook::Message.default_url_options = {host: 'copipedential.example.com', protocol: 'https'}
   end
 
-  describe 'serialize and de-' do
-    let(:hook) { Hook.new(name: 'hi', backend: 'webpost') }
-    subject { Hook.find(hook.id).config } # deep reload of hook
-    before do
-      hook.config = {endpoint: 'https://api.example.com/foo', post_key: 'message'}
-      hook.save!
-    end
-
-    its([:endpoint]) { should ==  'https://api.example.com/foo' }
-  end
-
   describe 'call hook-engine' do
     let!(:spy) { [] }
-    let(:hook) { Hook.new(name: 'test', backend: 'spy', config: {hi: 'you'}) }
+    let(:hook) { Hook.new(name: 'test', backend: 'spy', config: {hi: 'you'}.to_yaml) }
 
     subject &:spy
 

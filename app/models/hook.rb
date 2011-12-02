@@ -1,4 +1,6 @@
+# coding: utf-8
 require 'net/https'
+require 'yaml'
 
 class Hook < ActiveRecord::Base
   module MentionHook
@@ -38,15 +40,23 @@ class Hook < ActiveRecord::Base
 
   validates :name, presence: true
   validates :engine, presence: true
+  validate  :config_is_valid_yaml
 
   scope :active, where(active: true)
-  serialize :config
 
   def hook(message)
-    engine.try(:call, message, config)
+    engine.try(:call, message, YAML.load(config))
   end
 
   def engine
     BACKENDS[backend.to_sym]
+  end
+
+  private
+
+  def config_is_valid_yaml
+    YAML.load(config)
+  rescue
+    errors.add(:config, 'はYAMLを手書きしてください')
   end
 end
