@@ -10,6 +10,8 @@ class Snippet < ActiveRecord::Base
     limit ? o.limit(limit.to_i) : o
   end
 
+  include ::Hook::MentionHook
+
   def assumed_filetype(if_none = :text)
     filetype.presence || if_none
   end

@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe Snippet do
-  describe 'mention' do
-    let(:user) { Fabricate(:user) }
-    let(:mentioned) { Fabricate(:user) }
-    let(:snippet) { user.snippets.build(body: 'p :hi', mentioned_ids: [mentioned.id]) }
+  # XXX
+  before do
+    Hook::Message.default_url_options = {host: 'copipedential.example.com', protocol: 'https'}
+  end
+
+  describe 'save the snippet, and built valid associations' do
+    include_context 'a [user] will paste a [snippet] w/ mentioning to [mentioned]'
 
     subject &:snippet
 
@@ -16,3 +19,4 @@ describe Snippet do
     specify { mentioned.mentioned_snippets.should =~ [snippet] }
   end
 end
+

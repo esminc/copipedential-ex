@@ -1,4 +1,6 @@
 Copipedential::Application.routes.draw do
+  resources :hooks
+
   root to: 'snippets#index'
 
   resources :snippets
