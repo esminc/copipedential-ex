@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111122061349) do
+ActiveRecord::Schema.define(:version => 20111202075835) do
+
+  create_table "hooks", :force => true do |t|
+    t.string   "name",       :limit => 50,                   :null => false
+    t.string   "backend",    :limit => 50
+    t.text     "config"
+    t.boolean  "active",                   :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "mentions", :force => true do |t|
     t.integer "snippet_id",   :null => false
