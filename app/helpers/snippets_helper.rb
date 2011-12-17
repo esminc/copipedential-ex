@@ -8,19 +8,10 @@ module SnippetsHelper
     end
   end
 
-  # XXX CRUD able
   def filetype_suggesions
     [
       ['none (auto-detect)', ''],
-      %w[Ruby ruby],
-      %w[ERB erb],
-      %w[YAML yaml],
-      %w[JavaScript javascript],
-      %w[Java java],
-      %w[C c],
-      %w[C++ cpp],
-      %w[SQL sql],
-      %w[XML xml],
+      *Filetype.ordered.map {|ft| [ft.name, ft.id] }
     ]
   end
 end
