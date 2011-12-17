@@ -1,6 +1,7 @@
 class Snippet < ActiveRecord::Base
   validates_presence_of :body
   belongs_to :author, class_name: 'User'
+  belongs_to :filetype
 
   has_many :mentions
   has_many :mentioneds, through: :mentions
@@ -13,7 +14,7 @@ class Snippet < ActiveRecord::Base
   include ::Hook::MentionHook
 
   def assumed_filetype(if_none = :text)
-    filetype.presence || if_none
+    filetype.try(:name) || if_none
   end
 
   def title

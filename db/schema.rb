@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202075835) do
+ActiveRecord::Schema.define(:version => 20111217045204) do
+
+  create_table "filetypes", :force => true do |t|
+    t.string  "name",                          :null => false
+    t.boolean "renderable", :default => false
+  end
 
   create_table "hooks", :force => true do |t|
     t.string   "name",       :limit => 50,                   :null => false
@@ -32,11 +37,11 @@ ActiveRecord::Schema.define(:version => 20111202075835) do
   create_table "snippets", :force => true do |t|
     t.string   "name"
     t.text     "body"
-    t.string   "filetype"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "author_id",                  :null => false
     t.string   "description", :limit => 200
+    t.integer  "filetype_id"
   end
 
   create_table "users", :force => true do |t|
