@@ -13,9 +13,10 @@ class Snippet < ActiveRecord::Base
 
   include ::Hook::MentionHook
 
-  def assumed_filetype(if_none = :text)
-    filetype.try(:name) || if_none
+  def filetype_name
+    filetype.try(:name)
   end
+  alias_method :assumed_filetype, :filetype_name
 
   def title
     [name, description].reject(&:blank?).join(' - ').presence || body.truncate(20)

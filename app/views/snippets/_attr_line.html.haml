@@ -2,7 +2,7 @@
   .span2
     =link_to snippet.code, snippet, class: :permalink
   .span2.filetype
-    %span.label= snippet.assumed_filetype(nil) || content_tag('span', '(none)', class: 'blank')
+    %span.label= snippet.assumed_filetype || content_tag('span', '(none)', class: 'blank')
   .span3
     = snippet.name.presence || content_tag('span', '(none)', class: 'blank')
   .span2

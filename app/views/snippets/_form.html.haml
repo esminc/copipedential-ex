@@ -16,6 +16,7 @@
     = f.label :filetype
     .input
       = f.select :filetype_id, filetype_suggesions, class: 'xxlarge'
+      %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
 
   .field
     = f.label :description
@@ -42,6 +43,16 @@
   .actions
     = button_tag 'Clear', type: 'reset', class: 'btn'
     = f.submit 'Save', class: 'btn primary'
+
+#add_new_filetype.modal.hide
+  .modal-header
+    %a.close ×
+    %h3 modal heading
+  .modal-body
+    %p hi
+  .modal-footer
+    %a.btn.primary hi
+    %a.btn.cancel bye
 
 :javascript
   $(function(){
