@@ -13,6 +13,7 @@ gem 'omniauth-github'
 gem 'hubruby'
 gem 'kaminari'
 gem 'tapp'
+gem 'redcarpet'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'
