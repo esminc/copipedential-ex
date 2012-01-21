@@ -25,4 +25,8 @@ class Snippet < ActiveRecord::Base
   def code
     "copipe:#{id}"
   end
+
+  def rendered_body
+    filetype.try(:renderable) ? filetype.render(body) : body
+  end
 end
