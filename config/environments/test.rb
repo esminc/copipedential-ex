@@ -36,4 +36,6 @@ Copipedential::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.active_record.mass_assignment_sanitizer = :strict
 end
