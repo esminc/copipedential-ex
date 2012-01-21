@@ -54,17 +54,16 @@
     %a.btn.primary hi
     %a.btn.cancel bye
 
-:javascript
-  $(function(){
-    var selector = '.mentions ul input[type=checkbox]';
-    function highlightMention() {
-      $(selector).parents('li').removeClass('checked');
-      $(selector + ':checked').parents('li').addClass('checked');
-      return true;
-    };
-    $(selector).change(highlightMention);
-    highlightMention();
+    .modal-footer
+      = f.submit nil, class: %w[btn primary]
 
-    $('.mentions img').twipsy();
-  });
+:coffeescript
+  selector = '.mentions ul input[type=checkbox]'
+  highlightMention = ->
+    $(selector).parents("li").removeClass "checked"
+    $(selector + ":checked").parents("li").addClass "checked"
+    true
+  $(selector).change highlightMention
+  highlightMention()
+  $(".mentions img").twipsy()
 

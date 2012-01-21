@@ -6,6 +6,7 @@ gem 'pg'
 
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'coffee-filter'
 
 gem 'responders'
 gem 'omniauth-github'
