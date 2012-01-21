@@ -47,12 +47,19 @@
 #add_new_filetype.modal.hide
   .modal-header
     %a.close ×
-    %h3 modal heading
-  .modal-body
-    %p hi
-  .modal-footer
-    %a.btn.primary hi
-    %a.btn.cancel bye
+    %h3 New filetype
+  = form_for Filetype.new do |f|
+    .modal-body
+      .field
+        = f.label :name
+        .input
+          = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename', required: true
+        .input
+          %ul.inputs-list
+            %li
+              %label
+                = f.check_box :renderable
+                = f.label :renderable
 
     .modal-footer
       = f.submit nil, class: %w[btn primary]
