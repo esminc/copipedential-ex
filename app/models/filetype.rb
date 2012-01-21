@@ -8,8 +8,11 @@ class Filetype < ActiveRecord::Base
   self.processors = Hash.new{|h, k| h[k] = ->(body) { body } }
   self.processors['markdown'] = ->(body) { Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(body) }
 
+  def keyword
+    name.sub(/\s+/, '_').underscore
+  end
+
   def render(body)
-    key = name.sub(/\s+/, '_').underscore
-    self.class.processors[key].call(body)
+    self.class.processors[keyword].call(body)
   end
 end
