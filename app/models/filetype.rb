@@ -9,7 +9,7 @@ class Filetype < ActiveRecord::Base
   self.processors['markdown'] = ->(body) { Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(body) }
 
   def keyword
-    name.sub(/\s+/, '_').underscore
+    name.gsub(/\s+/, '_').underscore
   end
 
   def render(body)
