@@ -8,7 +8,7 @@ class CreateFiletypes < ActiveRecord::Migration
 
     Snippet.all.each do |snippet|
       next if (old = snippet.read_attribute(:filetype)).blank?
-      ft = Filetype.find_or_create_by_name(snippet.filetype)
+      ft = Filetype.find_or_create_by_name(old)
       ft.save!
       snippet.update_attribute(:filetype_id, ft.id)
     end
