@@ -1,6 +1,7 @@
 class Snippet < ActiveRecord::Base
   validates_presence_of :body
   belongs_to :author, class_name: 'User'
+  belongs_to :filetype
 
   has_many :mentions
   has_many :mentioneds, through: :mentions
@@ -12,9 +13,10 @@ class Snippet < ActiveRecord::Base
 
   include ::Hook::MentionHook
 
-  def assumed_filetype(if_none = :text)
-    filetype.presence || if_none
+  def filetype_name
+    filetype.try(:name)
   end
+  alias_method :assumed_filetype, :filetype_name
 
   def title
     [name, description].reject(&:blank?).join(' - ').presence || body.truncate(20)
@@ -22,5 +24,9 @@ class Snippet < ActiveRecord::Base
 
   def code
     "copipe:#{id}"
+  end
+
+  def rendered_body
+    filetype.try(:renderable) ? filetype.render(body) : body
   end
 end

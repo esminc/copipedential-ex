@@ -7,14 +7,24 @@
     - if @snippet.author == current_user
       = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
 
-  %pre.prettyprint.linenums.body
-    - opt = @snippet.filetype? ? {class: "language-#{@snippet.filetype}"} : {}
-    %code{opt}= @snippet.body
+  - if @snippet.filetype.try(:renderable)
+    %renderable{class: @snippet.filetype.keyword}
+      %ul.tabs{'data-tabs' => 'tabs'}
+        %li.active= link_to 'Snippet', '#rendered'
+        %li= link_to 'Source', '#source'
+      .tab-content
+        %section#rendered.tab-pane.active= sanitize(@snippet.rendered_body)
+        %section#source.tab-pane
+          %pre= @snippet.body
+  - else
+    %pre.prettyprint.linenums.body
+      - opt = @snippet.filetype ? {class: "language-#{@snippet.filetype.name}"} : {}
+      %code{opt}= @snippet.body
 
-  .mentioned
-    %h2 mentioned to
-    - @snippet.mentioneds.alphabetical_order.each do |user|
-      = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
+    .mentioned
+      %h2 mentioned to
+      - @snippet.mentioneds.alphabetical_order.each do |user|
+        = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
 
 - content_for :header do
   = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'

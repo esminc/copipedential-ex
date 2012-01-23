@@ -6,6 +6,7 @@ gem 'pg'
 
 gem 'jquery-rails'
 gem 'haml-rails'
+gem 'coffee-filter'
 
 gem 'responders'
 gem 'omniauth-github'
@@ -14,6 +15,7 @@ gem 'kaminari'
 gem 'tapp'
 gem 'bootstrap-sass'
 gem 'thin', group: :production
+gem 'redcarpet'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'

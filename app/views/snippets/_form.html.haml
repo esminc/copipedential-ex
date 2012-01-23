@@ -15,7 +15,8 @@
   .field
     = f.label :filetype
     .input
-      = f.select :filetype, filetype_suggesions, class: 'xxlarge'
+      = f.select :filetype_id, filetype_suggesions, class: 'xxlarge'
+      %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
 
   .field
     = f.label :description
@@ -43,17 +44,33 @@
     = button_tag 'Clear', type: 'reset', class: 'btn'
     = f.submit 'Save', class: 'btn primary'
 
-:javascript
-  $(function(){
-    var selector = '.mentions ul input[type=checkbox]';
-    function highlightMention() {
-      $(selector).parents('li').removeClass('checked');
-      $(selector + ':checked').parents('li').addClass('checked');
-      return true;
-    };
-    $(selector).change(highlightMention);
-    highlightMention();
+#add_new_filetype.modal.hide
+  .modal-header
+    %a.close ×
+    %h3 New filetype
+  = form_for Filetype.new do |f|
+    .modal-body
+      .field
+        = f.label :name
+        .input
+          = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename', required: true
+        .input
+          %ul.inputs-list
+            %li
+              %label
+                = f.check_box :renderable
+                = f.label :renderable
 
-    $('.mentions img').twipsy();
-  });
+    .modal-footer
+      = f.submit nil, class: %w[btn primary]
+
+:coffeescript
+  selector = '.mentions ul input[type=checkbox]'
+  highlightMention = ->
+    $(selector).parents("li").removeClass "checked"
+    $(selector + ":checked").parents("li").addClass "checked"
+    true
+  $(selector).change highlightMention
+  highlightMention()
+  $(".mentions img").twipsy()
 
