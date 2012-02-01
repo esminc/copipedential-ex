@@ -7,6 +7,7 @@ class Filetype < ActiveRecord::Base
 
   self.processors = Hash.new{|h, k| h[k] = ->(body) { body } }
   self.processors['markdown'] = ->(body) { Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(body) }
+  self.processors['plaintext'] = ->(body) { "<pre>#{body}</pre>" }
 
   def keyword
     name.gsub(/\s+/, '_').underscore
