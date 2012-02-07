@@ -4,10 +4,10 @@
   = link_to 'Create new', new_snippet_path, class: 'btn primary'
 
 .row
-  .index.span12
+  .index.span9
     = with_paging(@snippets) do
       = render partial: 'list', locals:{snippets: @snippets}
-  .dashboard.span4
+  .dashboard.span3
     = render partial: 'dashboard'
 
 %br
