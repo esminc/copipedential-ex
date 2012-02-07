@@ -1,9 +1,10 @@
 source :rubygems
 
-gem 'rails', '~> 3.2.0'
+gem 'rails', '~> 3.2.1'
 gem 'rack', '~>1.4.1'
 gem 'pg'
 
+gem 'foreman'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
