@@ -14,7 +14,8 @@ gem 'omniauth-github'
 gem 'hubruby'
 gem 'kaminari'
 gem 'tapp'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git', branch: '2.0'
+
 gem 'thin', group: :production
 gem 'redcarpet'
 
