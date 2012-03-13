@@ -11,7 +11,7 @@ module ApplicationHelper
 
   def with_paging(objects, &block)
     pagination = paginate(objects)
-    content = capture(&block)
+    content = capture { block.call(objects) }
 
     pagination + content + pagination
   end

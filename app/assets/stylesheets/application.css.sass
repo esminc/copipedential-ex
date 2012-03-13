@@ -1,6 +1,9 @@
 @import "bootstrap"
 $small: 10px
 
+h1
+  margin: 10px
+
 a.user-mini
   background-position: left center !important
   background-repeat: no-repeat !important
@@ -12,8 +15,8 @@ span.blank
   font-weight: normal
 
 textarea#snippet_body
-  font-family: monospace
   font-size: 14px
+  color: black
 
 .attr-line
   font-size: 13px
@@ -27,19 +30,20 @@ textarea#snippet_body
     font-weight: normal
 
 .snippet
-  h1.title
-    font-size: 2px
-    color: white
-    height: 5px
   code
     background-color: black
+    border: none
 
-.alert-message
+.alert
   margin-top: 0.5em
 
 ul#snippets
   li
     margin-bottom: 3em
+
+ul#snippets.nopreview
+  li
+    margin-bottom: 2px
 
 // /snippets/new & webkit hack
 select[name*=filetype]
@@ -60,6 +64,7 @@ p.description
 
     input[type="checkbox"]
       margin-left: -18px
+      float: left
 
     li img
       border: 5px solid white

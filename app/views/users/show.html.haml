@@ -1,6 +1,9 @@
 %h2= "#{@user.nickname}'s snippets"
 
-%div
-  %ul
-    - @user.snippets.recent(20).each do |snippet|
-      %li= link_to snippet.title, snippet
+.row
+  .index
+    = with_paging(@user.snippets.order('updated_at DESC').page(params[:page]).per(per_page)) do |snippets|
+      %ul#snippets.unstyled.nopreview
+        - snippets.each do |snippet|
+          %li[snippet]
+            = render(partial: 'snippets/attr_line', locals: {snippet: snippet})
