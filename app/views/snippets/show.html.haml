@@ -5,16 +5,18 @@
   %p.description
     = @snippet.description
     - if @snippet.author == current_user
-      = link_to 'Edit', edit_snippet_path(@snippet), class:'btn'
+      = link_to edit_snippet_path(@snippet), class:'btn' do
+        %i.icon-edit
+        Edit
 
   - if @snippet.filetype.try(:renderable)
-    %renderable{class: @snippet.filetype.keyword}
-      %ul.tabs{'data-tabs' => 'tabs'}
-        %li.active= link_to 'Snippet', '#rendered'
-        %li= link_to 'Source', '#source'
+    .renderable{class: @snippet.filetype.keyword}
+      %ul.nav.nav-tabs
+        %li.active= link_to 'Snippet', '#rendered', 'data-toggle' => 'tab'
+        %li= link_to 'Source', '#source', 'data-toggle' => 'tab'
       .tab-content
-        %section#rendered.tab-pane.active= sanitize(@snippet.rendered_body)
-        %section#source.tab-pane
+        #rendered.tab-pane.active= sanitize(@snippet.rendered_body)
+        #source.tab-pane
           %pre= @snippet.body
   - else
     %pre.prettyprint.linenums.body
