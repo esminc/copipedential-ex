@@ -17,7 +17,7 @@
       .tab-content
         #rendered.tab-pane.active= sanitize(@snippet.rendered_body)
         #source.tab-pane
-          %pre= @snippet.body
+          %pre~ @snippet.body
   - else
     %pre.prettyprint.linenums.body
       - opt = @snippet.filetype ? {class: "language-#{@snippet.filetype.name}"} : {}
