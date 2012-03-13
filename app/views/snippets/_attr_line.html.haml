@@ -1,11 +1,11 @@
 %h2.attr-line.row
-  .span2
+  .span1
     =link_to snippet.code, snippet, class: :permalink
   .span2.filetype
     %span.label= snippet.assumed_filetype || content_tag('span', '(none)', class: 'blank')
-  .span3
-    = snippet.name.presence || content_tag('span', '(none)', class: 'blank')
   .span2
+    = snippet.name.presence || content_tag('span', '(none)', class: 'blank')
+  .span1
     = user_mini_link snippet.author
   .span2
     %span.timestamp= l(snippet.updated_at)
