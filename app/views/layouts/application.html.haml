@@ -18,7 +18,10 @@
 
             %ul.nav
               - if signed_in?
-                %li= link_to 'Copipe!', :new_snippet
+                %li
+                  = link_to :new_snippet do
+                    %i.icon-pencil.icon-white
+                    Paste!
                 %li= link_to 'Hooks', :hooks
                 %li
                   = form_tag :snippets, method: :get, class: 'pull-left navbar-search' do
@@ -36,4 +39,4 @@
 
     %footer.footer
       .container
-        %p &copy; 2011 Eiwa System Management Inc.
+        %p &copy; 2011-#{Time.now.year} Eiwa System Management Inc.
