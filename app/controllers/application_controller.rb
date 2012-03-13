@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate!, :authorize!, :personalize
   responders :flash
-  helper_method :organization
+  helper_method :organization, :per_page
 
   private
 

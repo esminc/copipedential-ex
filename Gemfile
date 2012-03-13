@@ -1,9 +1,10 @@
 source :rubygems
 
-gem 'rails', '~> 3.2.0'
+gem 'rails', '~> 3.2.1'
 gem 'rack', '~>1.4.1'
 gem 'pg'
 
+gem 'foreman'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
@@ -13,7 +14,9 @@ gem 'omniauth-github'
 gem 'hubruby'
 gem 'kaminari'
 gem 'tapp'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
+gem 'twitter_bootstrap_form_for', git: 'git://github.com/stouset/twitter_bootstrap_form_for.git', branch: 'bootstrap-2.0'
+
 gem 'thin', group: :production
 gem 'redcarpet'
 
