@@ -1,4 +1,4 @@
-= form_for @snippet do |f|
+= form_for @snippet, html: {class: 'form-horizontal'} do |f|
   -if @snippet.errors.any?
     #error_explanation
       %h2= "#{pluralize(@snippet.errors.count, "error")} prohibited this snippet from being saved:"
@@ -6,43 +6,44 @@
         - @snippet.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    .input
-      = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename'
-      %span.help-inline (optional)
+  .fieldset
+    .control-group
+      = f.label :name, class: 'control-label'
+      .controls
+        = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename'
+        %span.help-inline (optional)
 
-  .field
-    = f.label :filetype
-    .input
-      = f.select :filetype_id, filetype_suggesions, class: 'xxlarge'
-      %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
+    .control-group
+      = f.label :filetype, class: 'control-label'
+      .controls
+        = f.select :filetype_id, filetype_suggesions, class: 'xxlarge'
+        %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
 
-  .field
-    = f.label :description
-    .input
-      = f.text_field :description, class: 'xlarge span7', placeholder: 'description'
-      %span.help-inline (optional)
+    .control-group
+      = f.label :description, class: 'control-label'
+      .controls
+        = f.text_field :description, class: 'xlarge span7', placeholder: 'description'
+        %span.help-inline (optional)
 
-  .field
-    = f.label :body
-    .input= f.text_area :body, class: 'xxlarge span13', rows: 30
+    .control-group
+      = f.label :body, class: 'control-label'
+      .controls= f.text_area :body, class: 'input-xxlarge', rows: 30
 
-  .field.mentions
-    %label Mention
-    .input
-      %ul.inputs-list
-        - User.alphabetical_order.each do |user|
-          %li
-            - id = "mentioned_ids_#{user.id}"
-            %label(for=id)
-              = check_box_tag "#{f.object_name}[mentioned_ids][]", user.id, @snippet.mentioned_ids.include?(user.id), id: id
-              = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
-      .clearfix
+    .field.mentions.span8.offset1
+      %label Mention
+      .input
+        %ul.inputs-list.unstyled
+          - User.alphabetical_order.each do |user|
+            %li
+              - id = "mentioned_ids_#{user.id}"
+              %label(for=id)
+                = check_box_tag "#{f.object_name}[mentioned_ids][]", user.id, @snippet.mentioned_ids.include?(user.id), id: id
+                = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
+    .clearfix
 
-  .actions
-    = button_tag 'Clear', type: 'reset', class: 'btn'
-    = f.submit 'Save', class: 'btn primary'
+  .actions.span8.offset1
+    %input.btn.btn-warning{type:'reset'}
+    = f.submit 'Save', class: 'btn btn-success'
 
 #add_new_filetype.modal.hide
   .modal-header
