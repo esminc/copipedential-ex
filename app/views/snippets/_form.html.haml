@@ -1,4 +1,4 @@
-= form_for @snippet, html: {class: 'form-horizontal'} do |f|
+= twitter_bootstrap_form_for @snippet, html: {class: 'form-horizontal'} do |f|
   -if @snippet.errors.any?
     #error_explanation
       %h2= "#{pluralize(@snippet.errors.count, "error")} prohibited this snippet from being saved:"
@@ -6,28 +6,17 @@
         - @snippet.errors.full_messages.each do |msg|
           %li= msg
 
-  .fieldset
-    .control-group
-      = f.label :name, class: 'control-label'
-      .controls
-        = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename'
-        %span.help-inline (optional)
+  = f.fieldset do
+    = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename' do
+      %span.help-inline (optional)
 
-    .control-group
-      = f.label :filetype, class: 'control-label'
-      .controls
-        = f.select :filetype_id, filetype_suggesions, class: 'xxlarge'
-        %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
+    = f.select :filetype_id, nil, filetype_suggesions, class: 'xxlarge' do
+      %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
 
-    .control-group
-      = f.label :description, class: 'control-label'
-      .controls
-        = f.text_field :description, class: 'xlarge span7', placeholder: 'description'
-        %span.help-inline (optional)
+    = f.text_field :description, class: 'xlarge span7', placeholder: 'description' do
+      %span.help-inline (optional)
 
-    .control-group
-      = f.label :body, class: 'control-label'
-      .controls= f.text_area :body, class: 'input-xxlarge', rows: 30
+    = f.text_area :body, class: 'input-xxlarge', rows: 30
 
     .field.mentions.span8.offset1
       %label Mention

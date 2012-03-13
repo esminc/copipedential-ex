@@ -1,9 +1,17 @@
 GIT
-  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
-  revision: 86eadbe5542edace510e8a0507641587ec46a423
-  branch: 2.0
+  remote: git://github.com/stouset/twitter_bootstrap_form_for.git
+  revision: a1ed21787872a1469d0e57a632f5442e3106d334
+  branch: bootstrap-2.0
   specs:
-    bootstrap-sass (2.0.0)
+    twitter_bootstrap_form_for (2.0.1.0.rc1)
+      actionpack (~> 3)
+      railties (~> 3)
+
+GIT
+  remote: git://github.com/thomas-mcdonald/bootstrap-sass.git
+  revision: f71cf6e63cf5bde4ad12a088bbc0dc0e0434a000
+  specs:
+    bootstrap-sass (2.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -270,5 +278,6 @@ DEPENDENCIES
   sass-rails (~> 3.2.0)
   tapp
   thin
+  twitter_bootstrap_form_for!
   uglifier (>= 1.0.3)
   wirb
