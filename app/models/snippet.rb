@@ -1,5 +1,5 @@
 class Snippet < ActiveRecord::Base
-  validates_presence_of :body
+  validates_presence_of :body, :author
   belongs_to :author, class_name: 'User'
   belongs_to :filetype
 
@@ -9,6 +9,9 @@ class Snippet < ActiveRecord::Base
   scope :recent, ->(limit = nil) do
     o = order("#{quoted_table_name}.updated_at DESC")
     limit ? o.limit(limit.to_i) : o
+  end
+  scope :search, ->(q) do
+    q.blank? ? scoped : where('snippets.body LIKE ?', "%#{q}%")
   end
 
   include ::Hook::MentionHook

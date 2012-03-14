@@ -1,6 +1,7 @@
-%h1.title
-  Listing
-  = title = snippets_parent_name
+%h1.title= t 'message.index', resource_name: Snippet.model_name.human.pluralize
+
+- if params[:q].present?
+  %p=t 'message.index_q_matched', q: params[:q], count: @snippets.total_count, resource_name: Snippet.model_name.human.pluralize
 
 .row
   .index.span9

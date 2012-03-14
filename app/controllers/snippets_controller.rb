@@ -5,7 +5,7 @@ class SnippetsController < ApplicationController
   def index
     @parent = params[:user_id] ? User.find(params[:user_id]).snippets :
                                  Snippet
-    @snippets = @parent.order('updated_at DESC').page(params[:page]).per(per_page)
+    @snippets = @parent.search(params[:q]).recent.page(params[:page]).per(per_page)
     respond_with(@snippets)
   end
 

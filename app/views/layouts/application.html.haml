@@ -25,7 +25,7 @@
                 %li= link_to 'Hooks', :hooks
                 %li
                   = form_tag :snippets, method: :get, class: 'pull-left navbar-search' do
-                    = search_field_tag :q, '', class: 'search-query', placeholder: 'Search'
+                    = search_field_tag :q, params[:q], class: 'search-query', placeholder: 'Search'
                 %li.you= user_mini_link(current_user)
                 %li.sign_out= link_to 'Sign out', sign_out_url
 

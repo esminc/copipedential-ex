@@ -239,3 +239,7 @@ ja:
         notice: "%{resource_name} was successfully destroyed."
         alert: "%{resource_name} could not be destroyed."
 
+  message:
+    index: "Listing %{resource_name}"
+    index_q_matched: "'%{q}'を含む%{count}件の%{resource_name}があります。"
+
