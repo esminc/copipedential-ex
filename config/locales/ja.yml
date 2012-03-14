@@ -231,8 +231,10 @@ ja:
     actions:
       create:
         notice: "%{resource_name} ができました。"
+        alert:  "%{resource_name} にエラーがあります。"
       update:
         notice: "%{resource_name} を更新しました。"
+        alert:  "%{resource_name} にエラーがあります。"
       destroy:
         notice: "%{resource_name} was successfully destroyed."
         alert: "%{resource_name} could not be destroyed."

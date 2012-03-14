@@ -29,7 +29,7 @@
                 %li.you= user_mini_link(current_user)
                 %li.sign_out= link_to 'Sign out', sign_out_url
 
-      - {notice: :success, alert: :warning, error: :error}.map {|k, v| [v, flash[k]] }.each do |style,msg|
+      - {notice: :success, alert: :error, error: :error}.map {|k, v| [v, flash[k]] }.each do |style,msg|
         - next if msg.blank?
         .alert.fade.in{ 'class' => "alert-#{style}", 'data-alert' => 'success' }
           %a.close(href='#'){data:{dismiss: 'alert'}} &times;
