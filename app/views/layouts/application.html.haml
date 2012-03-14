@@ -49,7 +49,7 @@
             Drop image
         .modal-body
           #preview
-            = form_tag '/images' do
+            = form_tag :pictures do
               = hidden_field_tag 'raw_data'
               = submit_tag 'Drop below', disabled: true
             = image_tag('eiwakun.png')

@@ -1,0 +1,19 @@
+%h1 Editing picture description
+
+%section.edit
+  = twitter_bootstrap_form_for @picture, html: {class: 'form-horizontal'} do |f|
+
+    = f.fieldset do
+      = f.text_field :name, class: 'xlarge span3', placeholder: 'a name' do
+        %span.help-inline (optional)
+
+      = f.text_field :description, class: 'xlarge span7', placeholder: 'description' do
+        %span.help-inline (optional)
+
+      = f.label 'Picture' do
+        .raw_data= image_tag(polymorphic_url(@picture, format: :jpg))
+
+    = f.actions do
+      %input.btn.btn-warning{type:'reset'}
+      = f.submit 'Save', class: 'btn btn-success'
+

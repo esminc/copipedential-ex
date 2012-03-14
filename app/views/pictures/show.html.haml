@@ -1,0 +1,25 @@
+%div[@picture]
+  %h1.title= @picture.name
+
+  %h2.attr-line.row
+    .span1
+      = link_to @picture, class: :permalink do
+        %i.icon-picture
+        = @picture.code
+    .span2
+      = @picture.name.presence
+    .span1
+      = user_mini_link @picture.author
+    .span2
+      %span.timestamp= l(@picture.updated_at)
+
+  %p.description
+    = @picture.description
+    - if @picture.author == current_user
+      - if @picture.almost_new?
+        %span.almost_new_instruction Fill name and description from
+      = link_to [:edit, @picture], class:'btn' do
+        %i.icon-edit
+        Edit
+
+  %section.raw_data= image_tag(polymorphic_url(@picture, format: :jpg))
