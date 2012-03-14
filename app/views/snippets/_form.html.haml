@@ -5,7 +5,7 @@
       %span.help-inline (optional)
 
     = f.select :filetype_id, nil, filetype_suggesions, class: 'xxlarge' do
-      %a{'data-controls-modal'=>'add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
+      %a{'data-toggle' => 'modal', 'href'=>'#add_new_filetype', 'data-backdrop' => 'static'} Add new filetype
 
     = f.text_field :description, class: 'xlarge span7', placeholder: 'description' do
       %span.help-inline (optional)
@@ -24,29 +24,22 @@
                 = image_tag(gravatar(user, 32), alt:user.nickname, title: user.nickname)
     .clearfix
 
-  .actions.span8.offset1
+  = f.actions do
     %input.btn.btn-warning{type:'reset'}
     = f.submit 'Save', class: 'btn btn-success'
 
 #add_new_filetype.modal.hide
   .modal-header
-    %a.close ×
+    %a.close{data:{dismiss:'modal'}} &times;
     %h3 New filetype
-  = form_for Filetype.new do |f|
-    .modal-body
-      .field
-        = f.label :name
-        .input
-          = f.text_field :name, class: 'xlarge span3', placeholder: 'a filename', required: true
-        .input
-          %ul.inputs-list
-            %li
-              %label
-                = f.check_box :renderable
-                = f.label :renderable
-
-    .modal-footer
-      = f.submit nil, class: %w[btn primary]
+  .modal-body
+    = twitter_bootstrap_form_for Filetype.new, html: {class: 'form-horizontal'} do |ft|
+      = ft.fieldset do
+        = ft.text_field :name, class: 'xlarge span3', placeholder: 'a filename', required: true
+        = ft.label 'Renderable' do |control|
+          = control.check_box :renderable, 'Markup-able format'
+      = ft.actions do
+        = ft.submit 'Add', class: %w[btn btn-primary]
 
 :coffeescript
   selector = '.mentions ul input[type=checkbox]'
