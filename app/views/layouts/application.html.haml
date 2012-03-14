@@ -52,57 +52,9 @@
             = form_tag '/images' do
               = hidden_field_tag 'raw_data'
               = submit_tag 'Drop below', disabled: true
-            %img
+            = image_tag('eiwakun.png')
 
     %footer.footer
       .container
         %p &copy; 2011-#{Time.now.year} Eiwa System Management Inc.
-
-%style
-  :sass
-    #drop
-      height: 600px
-      width: 800px
-      margin-left: -400px
-      display: none
-    #preview
-      max-width: 800px
-      max-height: 600px
-      text-align: center
-    img.eiwakun
-      width: 400px
-      opacity: 0.3
-
-:coffeescript
-  $ ->
-    $.event.props.push('dataTransfer')
-
-    cancel = (e) ->
-      if(e.preventDefault)
-        e.preventDefault()
-      false
-
-    dropped = (e) ->
-      file = e.dataTransfer.files[0]
-
-      (reader = new FileReader()).onload = ->
-        result = reader.result
-        $('#preview form input[name=raw_data]').val(result)
-        $('#preview form input[type=submit]').val('Send this!').attr({disabled: false}).addClass('btn btn-success')
-        $('#preview img').attr('src', result).removeClass('eiwakun')
-
-      reader.readAsDataURL(file)
-
-    previewInit = (e) ->
-      $('#preview form input[name=raw_data]').val(null)
-      $('#preview form input[type=submit]').val('Drop below').attr({disabled: true}).removeClass('btn btn-success')
-      $('#preview img').attr('src', '/assets/eiwakun.png').addClass('eiwakun')
-
-    $('#drop').on 'hidden', previewInit
-
-    $('#drop').bind 'dragover', cancel
-    $('#drop').bind 'dragenter', cancel
-    $('#drop').bind 'drop', dropped
-
-    previewInit()
 

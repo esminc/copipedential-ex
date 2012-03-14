@@ -9,3 +9,39 @@
 #= require_tree .
 #= require bootstrap
 
+postPicture = () ->
+  $.event.props.push('dataTransfer')
+
+  bg_image = $('#preview img').attr('src')
+
+  previewInit = (e) ->
+    $('#preview form input[name=raw_data]').val(null)
+    $('#preview form input[type=submit]').val('Drop below').attr({disabled: true}).removeClass('btn btn-success')
+    $('#preview img').attr('src', bg_image).addClass('eiwakun')
+
+  cancel = (e) ->
+    if(e.preventDefault)
+      e.preventDefault()
+    false
+
+  dropped = (e) ->
+    file = e.dataTransfer.files[0]
+
+    (reader = new FileReader()).onload = ->
+      result = reader.result
+      $('#preview form input[name=raw_data]').val(result)
+      $('#preview form input[type=submit]').val('Send this!').attr({disabled: false}).addClass('btn btn-success')
+      $('#preview img').attr('src', result).removeClass('eiwakun')
+
+    reader.readAsDataURL(file)
+
+  $('#drop').on 'hidden', previewInit
+
+  $('#drop').bind 'dragover', cancel
+  $('#drop').bind 'dragenter', cancel
+  $('#drop').bind 'drop', dropped
+
+  previewInit()
+
+$ ->
+  postPicture()
