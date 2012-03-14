@@ -1,0 +1,6 @@
+- content_for :header do
+  = stylesheet_link_tag '/javascripts/google-code-prettify/styles/sunburst'
+  = javascript_include_tag '/javascripts/google-code-prettify/prettify'
+  :coffeescript
+    $ ->
+      prettyPrint()
