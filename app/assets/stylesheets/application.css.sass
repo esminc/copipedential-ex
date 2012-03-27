@@ -1,5 +1,6 @@
 @import "bootstrap"
 $small: 10px
+$head_picture : 60px
 
 h1
   margin: 10px
@@ -85,4 +86,20 @@ img.eiwakun
   width: 400px
   opacity: 0.3
   border: 2px dashed gray
+
+.pictures
+  margin-bottom: 1em
+
+  a.picture
+    width: $head_picture + 2px
+    height: $head_picture + 2px
+    text-align: center
+    display: inline-block
+    margin: 1px
+    border: 1px solid #ccc
+    vertical-align: top
+
+    img
+      max-height: $head_picture
+      max-width: $head_picture
 
