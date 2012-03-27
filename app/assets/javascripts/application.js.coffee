@@ -15,8 +15,12 @@ postPicture = () ->
   bg_image = $('#preview img').attr('src')
 
   previewInit = (e) ->
+    $('#drop .instruction').show()
+    $('#drop .instruction input[type=file]').val(null)
+
+    $('#preview form').hide()
     $('#preview form input[name=raw_data]').val(null)
-    $('#preview form input[type=submit]').val('Drop below').attr({disabled: true}).removeClass('btn btn-success')
+
     $('#preview img').attr('src', bg_image).addClass('eiwakun')
 
   cancel = (e) ->
@@ -24,16 +28,22 @@ postPicture = () ->
       e.preventDefault()
     false
 
-  dropped = (e) ->
-    file = e.dataTransfer.files[0]
-
+  readAndPreviewImage = (file) ->
     (reader = new FileReader()).onload = ->
       result = reader.result
+      $('#preview form').show()
       $('#preview form input[name=raw_data]').val(result)
-      $('#preview form input[type=submit]').val('Send this!').attr({disabled: false}).addClass('btn btn-success')
       $('#preview img').attr('src', result).removeClass('eiwakun')
 
     reader.readAsDataURL(file)
+
+  dropped = (e) ->
+    $('#drop').find('.instruction').hide()
+    readAndPreviewImage e.dataTransfer.files[0]
+
+  $('#drop').find('input[type=file]').change (e) ->
+    $('#drop').find('.instruction').hide()
+    readAndPreviewImage(e.target.files[0])
 
   $('#drop').on 'hidden', previewInit
 

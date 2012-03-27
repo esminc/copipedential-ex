@@ -48,10 +48,15 @@
             %i.icon-picture
             Drop image
         .modal-body
+          .instruction
+            %em Drop below
+            or
+            = file_field_tag 'data'
+
           #preview
             = form_tag :pictures do
               = hidden_field_tag 'raw_data'
-              = submit_tag 'Drop below', disabled: true
+              = submit_tag 'Send this', class: 'btn btn-success'
             = image_tag('eiwakun.png')
 
     %footer.footer
