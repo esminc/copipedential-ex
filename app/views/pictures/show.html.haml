@@ -22,4 +22,4 @@
         %i.icon-edit
         Edit
 
-  %section.raw_data= image_tag(polymorphic_url(@picture, format: :jpg))
+  %section.raw_data= image_tag(polymorphic_url([:raw, @picture]))

@@ -3,10 +3,11 @@ class PicturesController < ApplicationController
 
   def show
     @picture = Picture.find(params[:id])
-    respond_to do |f|
-      f.html
-      f.jpeg { send_data @picture.raw_data }
-    end
+  end
+
+  def raw
+    show unless @picture
+    send_data @picture.raw_data
   end
 
   def edit
