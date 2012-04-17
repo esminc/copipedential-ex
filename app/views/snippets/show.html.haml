@@ -19,7 +19,7 @@
         #source.tab-pane
           %pre~ @snippet.body
   - else
-    %pre.prettyprint.linenums.body
+    %pre.prettyprint.body
       - opt = @snippet.filetype ? {class: "language-#{@snippet.filetype.name}"} : {}
       %code{opt}= @snippet.body
 
