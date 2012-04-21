@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120314060846) do
+ActiveRecord::Schema.define(:version => 20120421012107) do
 
   create_table "filetypes", :force => true do |t|
     t.string  "name",                          :null => false
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(:version => 20120314060846) do
   end
 
   add_index "pictures", ["author_id"], :name => "index_pictures_on_author_id"
+
+  create_table "posts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id",    :null => false
+    t.string   "item_type",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posts", ["item_type", "item_id"], :name => "index_posts_on_item_type_and_item_id"
 
   create_table "snippets", :force => true do |t|
     t.string   "name"
