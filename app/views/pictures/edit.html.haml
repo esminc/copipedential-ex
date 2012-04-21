@@ -11,7 +11,7 @@
         %span.help-inline (optional)
 
       = f.label 'Picture' do
-        .raw_data= image_tag(polymorphic_url(@picture, format: :jpg))
+        .raw_data= image_tag(polymorphic_url([:raw, @picture]))
 
     = f.actions do
       %input.btn.btn-warning{type:'reset'}
