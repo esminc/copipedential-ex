@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Post do
-  describe 'eager loadable association' do
+  describe 'eager loadable polymorphic association' do
     include_context 'a [user] will paste a [snippet] w/ mentioning to [mentioned]'
     let(:picture) { Fabricate(:picture, author: user) }
     before do
