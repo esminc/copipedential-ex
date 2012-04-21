@@ -4,7 +4,7 @@ class Picture < ActiveRecord::Base
   attr_accessible :name, :description
 
   def raw_data=(raw)
-    raw = decode64data(raw) if raw =~ /^data:/i
+    raw = decode64data(raw) if raw.first(5) == 'data:'
     self.key = storage.put(StringIO.new(raw))
   end
 

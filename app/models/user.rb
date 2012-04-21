@@ -56,8 +56,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :snippets, foreign_key: :author_id
-  has_many :pictures, foreign_key: :author_id
+  has_many :snippets, foreign_key: :author_id, inverse_of: :author
+  has_many :pictures, foreign_key: :author_id, inverse_of: :author
+
+  has_many :posts, inverse_of: :user
 
   has_many :mentions, foreign_key: :mentioned_id
   has_many :mentioned_snippets, through: :mentions, source: 'snippet'
