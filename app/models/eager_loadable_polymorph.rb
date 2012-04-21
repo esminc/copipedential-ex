@@ -1,26 +1,26 @@
 module EagerLoadablePolymorph
-  class ConditionBuilder
-    def initialize(association)
+  class AssociationWriter
+    def initialize(association, types)
       raise ArgumentError, "#{association} is not polymorphic association" unless association.options[:polymorphic]
       @association = association
+      @types = types
     end
 
-    def condition_to(type, klass = nil)
-      klass ||= type.to_s.classify.constantize
-      {
-        foreign_key: fk,
-        conditions: ["EXISTS(SELECT 1 FROM #{tbl} WHERE #{tbl}.#{ft} = ? AND #{tbl}.#{fk} = #{klass.quoted_table_name}.#{klass.primary_key})", klass.name]
-      }
+    def belong_to_them(ref_from)
+      @types.each do |t|
+        ref_from.belongs_to t, readonly: true, foreign_key: fk, conditions: condition_sql(t.to_s.classify.constantize)
+      end
     end
 
-    def override_accessor(to)
-      assoc_name = @association.name
-      type_col = ft
+    def define_scope(ref_from)
+      ref_from.scope "with_#{@association.name}", ref_from.includes(*@types)
+    end
 
-      to.class_eval <<-RUBY.strip_heredoc
-        def #{assoc_name}
+    def override_accessor(ref_from)
+      ref_from.class_eval <<-RUBY.strip_heredoc
+        def #{@association.name}
           concreate_item = association(self[#{ft.dump}].underscore.to_sym)
-          polymorphic_item = association(:#{assoc_name})
+          polymorphic_item = association(:#{@association.name})
           if concreate_item.loaded? && !polymorphic_item.loaded?
             polymorphic_item.target = concreate_item.target
           end
@@ -43,16 +43,18 @@ module EagerLoadablePolymorph
     def tbl
       @association.active_record.quoted_table_name
     end
+
+    def condition_sql(klass)
+      ["EXISTS(SELECT 1 FROM #{tbl} WHERE #{tbl}.#{ft} = ? AND #{tbl}.#{fk} = #{klass.quoted_table_name}.#{klass.primary_key})", klass.name]
+    end
   end
 
   def eager_loadable_polymorphic_association(association_name, types)
-    cond = ConditionBuilder.new(reflections[association_name.to_sym])
+    assoc = AssociationWriter.new(reflections[association_name.to_sym], types)
 
-    types.each {|t| belongs_to t, cond.condition_to(t).merge(readonly: true) }
-
-    scope "with_#{association_name}", includes(*types)
-    cond.override_accessor(self)
+    assoc.belong_to_them(self)
+    assoc.define_scope(self)
+    assoc.override_accessor(self)
   end
 end
-
 
