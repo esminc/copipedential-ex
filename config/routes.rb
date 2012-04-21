@@ -1,7 +1,7 @@
 Copipedential::Application.routes.draw do
   resources :hooks
 
-  root to: 'snippets#index'
+  root to: 'posts#index'
 
   resources :snippets
   resources :pictures do

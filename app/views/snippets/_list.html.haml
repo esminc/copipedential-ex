@@ -1,8 +1,3 @@
 %ul#snippets.unstyled
   - snippets.each do |snippet|
-    %li[snippet]
-      = render(partial: 'attr_line', locals: {snippet: snippet})
-      %p.description= snippet.description
-      %pre.prettyprint
-        %code= snippet.body.lines.first(3).join
-
+    = render partial: 'snippets/list_item', locals: {item: snippet}

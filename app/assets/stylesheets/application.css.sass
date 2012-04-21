@@ -1,6 +1,6 @@
 @import "bootstrap"
 $small: 10px
-$head_picture : 60px
+$head_picture : 100px
 
 h1
   margin: 10px
@@ -90,16 +90,19 @@ img.eiwakun
 .pictures
   margin-bottom: 1em
 
-  a.picture
-    width: $head_picture + 2px
-    height: $head_picture + 2px
-    text-align: center
-    display: inline-block
-    margin: 1px
-    border: 1px solid #ccc
-    vertical-align: top
+a.picture
+  max-width: $head_picture + 2px
+  max-height: $head_picture + 2px
+  text-align: center
+  display: inline-block
+  margin: 1px
+  border: 1px solid #ccc
+  vertical-align: top
 
-    img
-      max-height: $head_picture
-      max-width: $head_picture
+  img
+    max-height: $head_picture
+    max-width: $head_picture
 
+textarea.picture_syntax
+  font-family: monospace
+  width: 90%
