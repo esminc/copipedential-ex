@@ -8,6 +8,4 @@ class Post < ActiveRecord::Base
   validate :user, presence: true
   validate :item, presence: true
 
-  scope :with_items, includes(:snippet, :picture)
-
 end

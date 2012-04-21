@@ -8,7 +8,7 @@ describe Post do
       user.posts.create!(item: snippet)
       user.posts.create!(item: picture)
 
-      @loaded_posts = Post.with_items.order(:id).all
+      @loaded_posts = Post.with_item.order(:id).all
       ActiveRecord::Base.connection.should_not_receive(:select_all)
     end
 
