@@ -29,13 +29,21 @@ end
 
 group :development do
   gem 'i18n_generators'
-  gem 'wirb'
-  gem 'hirb-unicode'
 
   group :test do
-    gem 'ruby-debug19'
     gem 'rspec-rails'
-    gem 'cucumber-rails'
     gem 'fabrication'
+    gem 'pry-rails'
+    gem 'tapp'
+    gem 'awesome_print'
+    gem 'auto_truncated_logger'
+
+    gem 'ruby-debug19'
+    gem 'ruby-debug-base19x', '>= 0.11.30.pre10'
+    gem 'linecache19', git: 'https://github.com/mark-moseley/linecache.git', ref: '869c6a65155068415925067e480741bd0a71527e'
   end
+end
+
+group :test do
+  gem 'cucumber-rails'
 end
