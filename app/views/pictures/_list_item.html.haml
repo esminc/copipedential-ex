@@ -5,6 +5,8 @@
       = link_to item, title: item.name, class: 'picture' do
         = image_tag polymorphic_url([:raw, item]), alt: item.name
     .span7
-      %p.description= item.description
-      %textarea.picture_syntax{readonly: true}
-        = "![#{item.name.presence || item.code}](#{polymorphic_url([:raw, item])})"
+      %dl
+        %dt
+          %span.label.label-info Markdown
+        %dd
+          %pre= "![#{item.name.presence || item.code}](#{polymorphic_url([:raw, item])})"
