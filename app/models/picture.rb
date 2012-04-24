@@ -1,4 +1,7 @@
 class Picture < ActiveRecord::Base
+
+  include Post::CallbackMixin
+
   belongs_to :author, class_name: 'User'
   validates_presence_of :key
   attr_accessible :name, :description

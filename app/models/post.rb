@@ -1,5 +1,20 @@
 class Post < ActiveRecord::Base
+  module CallbackMixin
+    extend ActiveSupport::Concern
+    included do
+      has_one :post, as: :item
+      after_create do
+        create_post user: author
+      end
+
+      after_update do
+        post.touch!
+      end
+    end
+  end
+
   extend EagerLoadablePolymorph
+
   belongs_to :user
   belongs_to :item, polymorphic: true
 
