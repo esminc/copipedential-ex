@@ -1,0 +1,6 @@
+%li[item]
+  = render(partial: 'snippets/attr_line', locals: {snippet: item})
+  %p.description= item.description
+  %pre.prettyprint
+    %code= item.body.lines.first(3).join
+

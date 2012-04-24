@@ -1,0 +1,14 @@
+%div[@picture]
+  %h1.title= @picture.name
+
+  = render partial: 'attr_line', locals: {picture: @picture}
+  %p.description
+    = @picture.description
+    - if @picture.author == current_user
+      - if @picture.almost_new?
+        %span.almost_new_instruction Fill name and description from
+      = link_to [:edit, @picture], class:'btn' do
+        %i.icon-edit
+        Edit
+
+  %section.raw_data= image_tag(polymorphic_url([:raw, @picture]))

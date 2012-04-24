@@ -1,4 +1,7 @@
 class Snippet < ActiveRecord::Base
+
+  include Post::CallbackMixin
+
   validates_presence_of :body, :author
   belongs_to :author, class_name: 'User'
   belongs_to :filetype

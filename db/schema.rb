@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111217045204) do
+ActiveRecord::Schema.define(:version => 20120421012107) do
 
   create_table "filetypes", :force => true do |t|
     t.string  "name",                          :null => false
@@ -33,6 +33,27 @@ ActiveRecord::Schema.define(:version => 20111217045204) do
   end
 
   add_index "mentions", ["snippet_id", "mentioned_id"], :name => "index_mentions_on_snippet_id_and_mentioned_id"
+
+  create_table "pictures", :force => true do |t|
+    t.string   "name",        :limit => 50
+    t.string   "description"
+    t.string   "key",                       :null => false
+    t.integer  "author_id",                 :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "pictures", ["author_id"], :name => "index_pictures_on_author_id"
+
+  create_table "posts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "item_id",    :null => false
+    t.string   "item_type",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "posts", ["item_type", "item_id"], :name => "index_posts_on_item_type_and_item_id"
 
   create_table "snippets", :force => true do |t|
     t.string   "name"

@@ -22,6 +22,10 @@
                   = link_to :new_snippet do
                     %i.icon-pencil.icon-white
                     Paste!
+                %li
+                  = link_to '#drop', 'data-toggle' => 'modal' do
+                    %i.icon-picture.icon-white
+                    Image
                 %li= link_to 'Hooks', :hooks
                 %li
                   = form_tag :snippets, method: :get, class: 'pull-left navbar-search' do
@@ -37,6 +41,25 @@
 
       = yield
 
+      #drop.modal{style: 'display:none'}
+        .modal-header
+          %a.close{data:{dismiss:'modal'}} &times;
+          %h3
+            %i.icon-picture
+            Drop image
+        .modal-body
+          .instruction
+            %em Drop below
+            or
+            = file_field_tag 'data'
+
+          #preview
+            = form_tag :pictures do
+              = hidden_field_tag 'raw_data'
+              = submit_tag 'Send this', class: 'btn btn-success'
+            = image_tag('eiwakun.png')
+
     %footer.footer
       .container
         %p &copy; 2011-#{Time.now.year} Eiwa System Management Inc.
+
