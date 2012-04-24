@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
       end
 
       after_update do
-        post.touch!
+        post.touch
       end
     end
   end
