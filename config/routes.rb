@@ -1,9 +1,12 @@
 Copipedential::Application.routes.draw do
   resources :hooks
 
-  root to: 'snippets#index'
+  root to: 'posts#index'
 
   resources :snippets
+  resources :pictures do
+    get :raw, on: :member
+  end
   resources :filetypes, only: %w[create]
   resources :users, only: %w[show] do
     resources :snippets, only: %w[index]

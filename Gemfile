@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'tapp'
 gem 'bootstrap-sass', git: 'git://github.com/thomas-mcdonald/bootstrap-sass.git'
 gem 'twitter_bootstrap_form_for', git: 'git://github.com/stouset/twitter_bootstrap_form_for.git', branch: 'bootstrap-2.0'
+gem 'gyomu_ruby', git: 'git://github.com/esminc/gyomu_ruby.git'
 
 gem 'thin', group: :production
 gem 'redcarpet'

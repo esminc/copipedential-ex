@@ -1,0 +1,13 @@
+%h1.title copipedential
+
+.row
+  .index.span9
+    = with_paging(@posts) do |posts|
+      %ul#posts.unstyled
+        - posts.each do |post|
+          = render partial: "#{post.item.class.model_name.pluralize.underscore}/list_item", locals: {item: post.item}
+
+  .dashboard.span3
+    = render partial: 'dashboard'
+
+= render :partial => 'shared/pretty_print'

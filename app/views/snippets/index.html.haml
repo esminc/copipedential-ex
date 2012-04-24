@@ -4,6 +4,11 @@
   %p=t 'message.index_q_matched', q: params[:q], count: @snippets.total_count, resource_name: Snippet.model_name.human.pluralize
 
 .row
+  %section.index.span9.pictures
+    -  Picture.limit(9).each do |pic| # 9 -> design matter
+      = link_to pic, title: pic.name, class: 'picture' do
+        = image_tag polymorphic_url([:raw, pic]), alt: pic.name
+
   .index.span9
     = with_paging(@snippets) do
       = render partial: 'list', locals:{snippets: @snippets}
